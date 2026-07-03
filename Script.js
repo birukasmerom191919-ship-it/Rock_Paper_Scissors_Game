@@ -1,5 +1,4 @@
 // Initialize scores by checking session storage.
-// If nothing is saved yet, it defaults to 0. It will reset when the tab closes.
 let userScore = parseInt(sessionStorage.getItem("userScore")) || 0;
 let compScore = parseInt(sessionStorage.getItem("compScore")) || 0;
 
