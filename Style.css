@@ -1,4 +1,3 @@
-/* Modern CSS Design */
 :root {
   --primary: #4f46e5;
   --bg: #0f172a;
@@ -14,36 +13,47 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  /* 100dvh accounts for mobile browser address bars */
+  min-height: 100dvh;
   margin: 0;
+  padding: 1rem;
+  box-sizing: border-box;
+  text-align: center;
 }
 
+/* Fluid Typography: scales smoothly between 2rem and 3rem based on screen width */
 h1 {
-  margin-bottom: 0.5rem;
-  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-size: clamp(2rem, 5vw, 3rem);
   letter-spacing: 1px;
 }
 
-/* Scoreboard Styling */
+/* Scoreboard */
 .scoreboard {
   display: flex;
-  gap: 3rem;
+  flex-wrap: wrap; /* Allows stacking on extremely small screens */
+  justify-content: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
   background: var(--card-bg);
-  padding: 1.5rem 3rem;
+  padding: clamp(1rem, 3vw, 1.5rem) clamp(1.5rem, 5vw, 3rem);
   border-radius: 16px;
-  margin-bottom: 3rem;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
 }
 
 .score-card {
   text-align: center;
+  flex: 1;
   min-width: 80px;
 }
 
 .score-card h2 {
   margin: 0 0 10px 0;
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
   color: #94a3b8;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -51,56 +61,70 @@ h1 {
 
 .score-card p {
   margin: 0;
-  font-size: 3rem;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
   font-weight: bold;
   color: var(--primary);
 }
 
-/* Game Buttons Styling */
+/* Choices Area */
 .choices {
   display: flex;
-  gap: 2rem;
+  flex-wrap: wrap; /* Prevents squishing on tiny phones */
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  width: 100%;
+  max-width: 600px;
 }
 
 button {
   background: var(--card-bg);
   border: 3px solid transparent;
   color: var(--text);
-  font-size: 4rem;
-  padding: 2rem;
+  font-size: clamp(3rem, 8vw, 5rem); /* Emojis will scale smoothly */
+  padding: clamp(1rem, 3vw, 2rem);
   border-radius: 50%;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  /* Keeps buttons structurally sound */
+  flex: 0 1 auto;
 }
 
-/* Hover and Click Animations */
-button:hover {
-  transform: translateY(-10px) scale(1.1);
-  border-color: var(--primary);
-  box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.4);
+/* Hover effects ONLY apply on devices with a mouse (prevents sticky mobile taps) */
+@media (hover: hover) {
+  button:hover {
+    transform: translateY(-10px) scale(1.1);
+    border-color: var(--primary);
+    box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.4);
+  }
 }
 
+/* Active click/tap effect for ALL devices */
 button:active {
   transform: translateY(0) scale(0.95);
 }
 
-/* Result Text Styling */
+/* Result Text */
 .result {
-  margin-top: 3rem;
-  font-size: 1.8rem;
+  margin-top: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
   font-weight: 600;
-  height: 2.5rem;
-  text-align: center;
+  min-height: 3rem; /* Prevents layout from jumping up and down */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
 }
 
-/* Dynamic Colors for Win/Lose/Draw */
 .winner {
   color: #10b981;
-} /* Green */
+}
 .loser {
   color: #ef4444;
-} /* Red */
+}
 .draw {
   color: #eab308;
-} /* Yellow */
+}
